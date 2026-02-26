@@ -82,7 +82,7 @@ body{
   color:var(--subtle);
 }
 
-/* ===== CASE (image + title always visible) ===== */
+/* ===== CASE ===== */
 .section{padding:60px 0;}
 .media{
   border:1px solid var(--border);
@@ -97,7 +97,6 @@ body{
   transition:filter .22s ease, transform .22s ease;
 }
 .media:hover img{filter:grayscale(0);transform:scale(1.01);}
-.media.is-color img{filter:grayscale(0);}
 .media button{
   border:0;background:transparent;width:100%;padding:0;
   cursor:pointer;display:block;
@@ -122,7 +121,7 @@ body{
 .desc strong{color:var(--navy);font-weight:900;}
 .divider{height:1px;background:var(--border);margin:20px auto;max-width:700px;}
 
-/* Stats row (always visible) */
+/* Stats row */
 .stats{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -140,15 +139,14 @@ body{
 }
 .statValue{margin-top:8px;font-size:24px;font-weight:900;color:var(--navy);}
 
-/* ===== EXPANDABLE DETAILS (what you said is missing) ===== */
+/* ===== DETAILS (NOW ALWAYS VISIBLE) ===== */
 .details{
   max-width:820px;
   margin:26px auto 0;
   border-top:1px solid var(--border);
   padding-top:22px;
-  display:none; /* hidden until expanded */
+  display:block; /* show by default */
 }
-.case.is-open .details{ display:block; }
 
 .blockTitle{
   display:flex;align-items:center;gap:10px;
@@ -261,10 +259,9 @@ body{
 <div class="wrap">
 
   <!-- ========== CASE 1 ========== -->
-  <section class="section case" data-case>
-    <figure class="media js-toggle">
-      <button type="button" aria-label="Toggle image color and open details">
-        <span class="srOnly">Toggle image color and open details</span>
+  <section class="section">
+    <figure class="media">
+      <button type="button" aria-label="Image">
         <img src="global-component.jpg" alt="Global component manufacturer">
       </button>
     </figure>
@@ -296,7 +293,6 @@ body{
       </div>
     </div>
 
-    <!-- EXPANDS BELOW (missing part you want) -->
     <div class="details">
       <div class="blockTitle"><span class="iconDot">⦿</span> THE PROBLEM</div>
       <p class="p">
@@ -335,10 +331,9 @@ body{
   <div class="rule"></div>
 
   <!-- ========== CASE 2 (UPDATED) ========== -->
-  <section class="section case" data-case>
-    <figure class="media js-toggle">
-      <button type="button" aria-label="Toggle image color and open details">
-        <span class="srOnly">Toggle image color and open details</span>
+  <section class="section">
+    <figure class="media">
+      <button type="button" aria-label="Image">
         <img src="shoney-hero-color.jpg" alt="Offshore manufacturing firm">
       </button>
     </figure>
@@ -410,10 +405,9 @@ body{
   <div class="rule"></div>
 
   <!-- ========== CASE 3 ========== -->
-  <section class="section case" data-case>
-    <figure class="media js-toggle">
-      <button type="button" aria-label="Toggle image color and open details">
-        <span class="srOnly">Toggle image color and open details</span>
+  <section class="section">
+    <figure class="media">
+      <button type="button" aria-label="Image">
         <img src="cat-hero-color.jpeg" alt="Catheter development firm">
       </button>
     </figure>
@@ -423,9 +417,9 @@ body{
       <div class="title">CATHETER DEVELOPMENT FIRM</div>
       <div class="subtitle">Rapid Scale-Up</div>
 
-      <p class="desc">
-        767 leads and 22 closed deals in 6 months. Proof that speed is the ultimate competitive advantage.
-      </p>
+    <p class="desc">
+      767 leads and 22 closed deals in 6 months. Proof that speed is the ultimate competitive advantage.
+    </p>
 
       <div class="divider"></div>
 
@@ -483,10 +477,9 @@ body{
   <div class="rule"></div>
 
   <!-- ========== CASE 4 ========== -->
-  <section class="section case" data-case>
-    <figure class="media js-toggle">
-      <button type="button" aria-label="Toggle image color and open details">
-        <span class="srOnly">Toggle image color and open details</span>
+  <section class="section">
+    <figure class="media">
+      <button type="button" aria-label="Image">
         <img src="fly-hero-color.jpg" alt="Medtech design agency">
       </button>
     </figure>
@@ -555,35 +548,6 @@ body{
 
 </div>
 
-<script>
-/*
-  Behavior you asked for:
-  - Image is grayscale by default
-  - Hover shows color on desktop
-  - Click/tap toggles color AND expands the missing info below
-  - Only one case stays open at a time (like an accordion)
-*/
-document.querySelectorAll("[data-case]").forEach((caseEl)=>{
-  const media = caseEl.querySelector(".js-toggle");
-  const btn = media ? media.querySelector("button") : null;
-  if(!btn) return;
-
-  btn.addEventListener("click", ()=>{
-    const isOpen = caseEl.classList.contains("is-open");
-
-    // close others
-    document.querySelectorAll("[data-case].is-open").forEach(openEl=>{
-      if(openEl !== caseEl) openEl.classList.remove("is-open");
-    });
-
-    // toggle current
-    caseEl.classList.toggle("is-open", !isOpen);
-
-    // toggle color state on tap
-    media.classList.toggle("is-color");
-  });
-});
-</script>
-
+<!-- Removed the click-to-expand script entirely, since details show by default -->
 </body>
 </html>
